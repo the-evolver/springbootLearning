@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35ceaf17-7d52-432f-88a8-1f38bebb9f25" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hospital-management/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/HospitalManagementApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Insurance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/type/BloodGroups.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/type/Gender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/InsuranceRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/PatientRepostory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Appoitment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Department.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor_Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,17 +21,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="38tSYKnnoFszqlirWZHc8vIRBi9" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -50,17 +40,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HospitalManagementApplication.executor": "Run",
-    "JUnit.HospitalManagementApplicationTests.testEntites.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HospitalManagementApplication.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HospitalManagementApplicationTests.testEntites.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="JUnit.HospitalManagementApplicationTests.testEntites">
     <configuration name="HospitalManagementApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplication" />

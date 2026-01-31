@@ -36,21 +36,43 @@ class HospitalManagementApplicationTests {
     @Rollback(false)
     void testEntites(){
 
+ //       This ordering is fine like in curr relationship parent (one-to-one) insurance ,and parent owns the relationship
+ //       so this order we create the inverse side first this will not give error and looks good logically
+
 //        Insurance insurance = Insurance.builder()
-//                              .policyNumber("LIC-1002")
+//                              .policyNumber("LIC-2000")
 //                               .provider("LIC")
-//                              .validUntil(LocalDate.of(2031, 9, 5)).build();
+//                              .validUntil(LocalDate.of(2032, 9, 5)).build();
 //
 //        Insurance savedInsurance= insuranceRepository.save(insurance);
 //
-//        Patient patient = Patient.builder().name("boba-teja").gender(Gender.MALE).
+//        Patient patient = Patient.builder().name("sam-teja").gender(Gender.MALE).
 //                birthDate(LocalDate.of(2011, 9, 8)).
-//                email("boba@example.com").
+//                email("sam@example.com").
 //                bloodGroup(BloodGroups.ABpos).build();
 //
 //        patient.setInsurance(savedInsurance);
 //
 //        patientRepostory.save(patient);
+
+/// ///==============================================================================
+//
+//        Patient patient = Patient.builder().name("sam-teja-1").gender(Gender.MALE).
+//                birthDate(LocalDate.of(2010, 9, 8)).
+//                email("sam1@example.com").
+//                bloodGroup(BloodGroups.ABpos).build();
+//
+//        patientRepostory.save(patient); // persistent state ...
+//
+//                Insurance insurance = Insurance.builder()
+//                              .policyNumber("LIC-3000")
+//                               .provider("LIC")
+//                              .validUntil(LocalDate.of(2033, 9, 5)).build();
+//
+//        Insurance savedInsurance= insuranceRepository.save(insurance); // persistent state
+//
+//        patient.setInsurance(savedInsurance);
+
 
 //        Insurance insurance = Insurance.builder()
 //                              .policyNumber("LIC-1003")
