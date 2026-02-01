@@ -1,0 +1,239 @@
+🧠 First — What Is Actually Happening When /posts/9(means posts which is not present) Is Called?
+
+Let’s assume:
+
+There is NO post with id = 9.
+
+🔁 Step 1 — Request Comes In
+
+Client calls:
+
+GET /posts/9
+
+
+Spring does:
+
+Controller → Service → Repository
+
+🔁 Step 2 — Repository
+postRepository.findById(9)
+
+
+Returns:
+
+Optional.empty()
+
+
+Because no row exists.
+
+🔁 Step 3 — Service
+.orElseThrow(...)
+
+This line executes.
+
+Since Optional is empty:
+
+→ It THROWS an exception.
+
+Let’s say:
+
+new ResourceNotFoundException("Post", "id", 9)
+
+
+Boom 💥
+Execution stops immediately.
+
+Nothing after that line runs.
+
+🚨 Now Important Question
+
+Where does this exception go?
+
+It starts going UP the call stack.
+
+Like this:
+
+Repository
+  ↑
+Service
+  ↑
+Controller
+  ↑
+Spring DispatcherServlet
+
+🧠 If We Did NOTHING
+
+Spring sees:
+
+"Some runtime exception happened"
+
+So it says:
+
+Server error.
+
+And returns:
+
+500 Internal Server Error
+
+
+Because Spring does not know what that exception means.
+
+🔥 Now Where Does @RestControllerAdvice Come In?
+
+Think of it like this:
+
+Spring has a global try-catch mechanism.
+
+Very important:
+
+Spring internally wraps controller execution in something like:
+
+try {
+    controllerMethod();
+}
+catch (Exception e) {
+    handleException(e);
+}
+
+
+That handleException(e) part looks for:
+
+Any class annotated with @ControllerAdvice or @RestControllerAdvice
+
+Any method annotated with @ExceptionHandler(SomeException.class)
+
+🧩 So When Exception Is Thrown
+
+Flow becomes:
+
+Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+Exception Thrown
+   ↑
+Spring catches it
+   ↓
+Looks for matching @ExceptionHandler
+   ↓
+Calls that method
+   ↓
+Returns ResponseEntity
+
+🎯 Let’s Visualize It Clearly
+WITHOUT Global Advice
+Client → Controller → Service → Exception
+                           ↑
+                       Nobody catches
+                           ↑
+                   Spring default handler
+                           ↑
+                    500 Internal Server Error
+
+WITH Global Advice
+Client → Controller → Service → Exception
+                           ↑
+                    Spring catches it
+                           ↑
+         Finds @ExceptionHandler(ResourceNotFoundException)
+                           ↑
+               Calls your method in GlobalExceptionHandler
+                           ↑
+                Returns custom 404 response
+
+🔥 Now Let’s See Concrete Code Flow
+Step A — Exception Thrown
+.orElseThrow(() ->
+        new ResourceNotFoundException("Post", "id", postId)
+);
+
+
+This creates:
+
+ResourceNotFoundException
+
+Step B — Spring Sees This Class
+
+You wrote:
+
+@RestControllerAdvice
+public class GlobalExceptionHandler
+
+
+Spring scans this at startup.
+
+It registers:
+
+“If any controller throws ResourceNotFoundException, call this method.”
+
+Step C — Exception Handler Method
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<ErrorDetails> handleResourceNotFound(
+        ResourceNotFoundException ex) {
+
+
+Spring matches:
+
+Exception type = ResourceNotFoundException
+Handler expects = ResourceNotFoundException
+
+Match found ✅
+
+Spring calls this method.
+
+Step D — Your Handler Returns
+return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+
+
+Now Spring says:
+
+Oh, you want to send 404.
+
+So it builds:
+
+HTTP 404
+JSON body = ErrorDetails
+
+
+And sends to client.
+
+🧠 IMPORTANT
+
+You did NOT call this method manually.
+
+Spring calls it automatically because:
+
+It is annotated
+
+It matches exception type
+
+It is global advice
+
+🧠 Why Is It Called “Advice”?
+
+Because it “advises” the controller globally.
+
+It acts like:
+
+A global interceptor for exceptions.
+
+🔥 Real Life Analogy
+
+Imagine:
+
+Controller = Office worker
+Service = Assistant
+Exception = Complaint
+
+Without Advice:
+
+Complaint reaches office → Nobody knows what to do → Panic → 500
+
+With Advice:
+
+Complaint reaches office → Reception desk (Advice) handles it properly → Sends correct response
+
+🧠 End-to-End Flow in One Line
+Exception thrown → Spring catches → matches handler → handler returns ResponseEntity → client receives formatted HTTP response
