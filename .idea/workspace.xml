@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35ceaf17-7d52-432f-88a8-1f38bebb9f25" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Appoitment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Department.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor_Department.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/AppoitmentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/DepartmentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/DoctorRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Appoitment.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Appoitment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/PatientRepostory.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/PatientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -40,33 +45,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HospitalManagementApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.HospitalManagementApplicationTests.testEntites.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HospitalManagementApplication.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testDeletePatientDoesNotDeleteAppointment.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testDepartmentHeadDoctor.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testDoctorAppointmentRelation.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testDoctorDepartmentManyToMany.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testEntites.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testInsuranceCannotBeAssignedTwice.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testOrphanRemovalInsurance.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testPatientAppointmentRelation.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testPatientInsuranceOneToOne.executor": "Run",
+    "JUnit.HospitalManagementApplicationTests.testRemoveDepartmentFromDoctor.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "inlay.hints"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.HospitalManagementApplicationTests.testEntites">
-    <configuration name="HospitalManagementApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplication" />
-      <module name="Practice" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.atul._1.Practice.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="HospitalManagementApplicationTests.testEntites" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RunManager" selected="JUnit.HospitalManagementApplicationTests.testOrphanRemovalInsurance">
+    <configuration name="HospitalManagementApplicationTests.testDepartmentHeadDoctor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice" />
       <extension name="coverage">
         <pattern>
@@ -76,7 +79,71 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.atul._1.Practice" />
       <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplicationTests" />
-      <option name="METHOD_NAME" value="testEntites" />
+      <option name="METHOD_NAME" value="testDepartmentHeadDoctor" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HospitalManagementApplicationTests.testDoctorAppointmentRelation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atul._1.Practice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atul._1.Practice" />
+      <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplicationTests" />
+      <option name="METHOD_NAME" value="testDoctorAppointmentRelation" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HospitalManagementApplicationTests.testDoctorDepartmentManyToMany" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atul._1.Practice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atul._1.Practice" />
+      <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplicationTests" />
+      <option name="METHOD_NAME" value="testDoctorDepartmentManyToMany" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HospitalManagementApplicationTests.testOrphanRemovalInsurance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atul._1.Practice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atul._1.Practice" />
+      <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplicationTests" />
+      <option name="METHOD_NAME" value="testOrphanRemovalInsurance" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HospitalManagementApplicationTests.testRemoveDepartmentFromDoctor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atul._1.Practice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atul._1.Practice" />
+      <option name="MAIN_CLASS_NAME" value="com.atul._1.Practice.HospitalManagementApplicationTests" />
+      <option name="METHOD_NAME" value="testRemoveDepartmentFromDoctor" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -84,8 +151,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HospitalManagementApplicationTests.testEntites" />
-        <item itemvalue="Application.HospitalManagementApplication" />
+        <item itemvalue="JUnit.HospitalManagementApplicationTests.testOrphanRemovalInsurance" />
+        <item itemvalue="JUnit.HospitalManagementApplicationTests.testDoctorDepartmentManyToMany" />
+        <item itemvalue="JUnit.HospitalManagementApplicationTests.testRemoveDepartmentFromDoctor" />
+        <item itemvalue="JUnit.HospitalManagementApplicationTests.testDepartmentHeadDoctor" />
+        <item itemvalue="JUnit.HospitalManagementApplicationTests.testDoctorAppointmentRelation" />
       </list>
     </recent_temporary>
   </component>
@@ -98,5 +168,25 @@
       <updated>1769617420856</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java</url>
+          <line>189</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java</url>
+          <line>240</line>
+          <properties class="com.atul._1.Practice.HospitalManagementApplicationTests" method="testDoctorDepartmentManyToMany">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

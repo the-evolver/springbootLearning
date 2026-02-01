@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,7 @@ import java.util.List;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     private String name;
 
@@ -26,9 +27,10 @@ public class Department {
     private LocalDateTime createdAt;
 
     @OneToOne
+    @JoinColumn(name = "head_doctor_id")
     private Doctor head_doctor_id;
 
-    @ManyToMany
-    private List<Doctor> all_doctors_in_department;
+    @ManyToMany(mappedBy = "departments")
+    private List<Doctor> all_doctors_in_department = new ArrayList<>();
 
 }

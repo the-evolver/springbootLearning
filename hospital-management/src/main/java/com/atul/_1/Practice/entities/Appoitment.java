@@ -18,7 +18,7 @@ public class Appoitment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @CreationTimestamp
     private LocalDateTime appoitmentTime;
@@ -29,10 +29,12 @@ public class Appoitment {
     private String status;
 
     @ManyToOne
-    private Doctor doctor_id;
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     @ManyToOne
-    private Patient patient_id;
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
 
 
