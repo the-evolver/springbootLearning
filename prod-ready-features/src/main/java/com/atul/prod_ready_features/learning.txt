@@ -237,3 +237,14 @@ Complaint reaches office → Reception desk (Advice) handles it properly → Sen
 
 🧠 End-to-End Flow in One Line
 Exception thrown → Spring catches → matches handler → handler returns ResponseEntity → client receives formatted HTTP response
+
+
+🔥🔥🔥🔥🔥
+
+Auditing
+
+🔥🔥🔥🔥🔥
+
+
+
+

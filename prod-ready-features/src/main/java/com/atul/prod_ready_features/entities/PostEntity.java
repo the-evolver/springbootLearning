@@ -1,10 +1,12 @@
 package com.atul.prod_ready_features.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CurrentTimestamp;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "Posts")
@@ -12,6 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Service
 public class PostEntity {
 
     @Id
@@ -21,4 +25,26 @@ public class PostEntity {
     private String title;
 
     private String description;
+
+    private String operation;
+
+    private LocalDateTime updateTime;
+
+    @PrePersist
+    public void beforeCreation(){
+         jpaAuditing("create");
+    }
+    @PreUpdate
+    public void beforeUpdate(){
+        jpaAuditing("update");
+    }
+    @PreRemove
+    public void beforeDelete(){
+        jpaAuditing("delete");
+    }
+
+    private void jpaAuditing(String currOperation) {
+         setOperation(currOperation);
+         setUpdateTime(LocalDateTime.now());
+    }
 }
