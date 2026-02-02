@@ -1,3 +1,383 @@
+📌 1. Overview — What is Database Auditing?
+🔹 Definition
+
+In ORM context, database auditing means:
+
+Tracking and logging INSERT, UPDATE, DELETE operations performed on persistent entities.
+
+It is similar to:
+
+Git version control
+
+Database triggers
+
+Entity versioning
+
+🔹 Why Auditing?
+
+Auditing helps to:
+
+Track who changed data
+
+Track when data changed
+
+Track what changed
+
+Maintain historical versions
+
+Enable rollback
+
+Ensure compliance
+
+📌 2. Auditing With Pure JPA (Jakarta Persistence)
+
+JPA does NOT provide a dedicated auditing API.
+
+We implement auditing using:
+
+Entity Lifecycle Callbacks
+
+🔹 2.1 Lifecycle Callback Annotations
+
+These methods run automatically during entity lifecycle events.
+
+Annotation	Triggered Before
+@PrePersist	INSERT
+@PreUpdate	UPDATE
+@PreRemove	DELETE
+
+Example:
+
+@Entity
+public class Bar {
+
+    @PrePersist
+    public void beforeInsert() {}
+
+    @PreUpdate
+    public void beforeUpdate() {}
+
+    @PreRemove
+    public void beforeDelete() {}
+}
+
+🔹 Rules for Callback Methods
+
+Must return void
+
+Must have no parameters
+
+Cannot be static
+
+Any visibility allowed
+
+Can have any name
+
+🔹 Important Restriction (Very Important)
+
+JPA Spec says:
+
+Lifecycle methods must NOT:
+
+Call EntityManager
+
+Run queries
+
+Modify relationships
+
+Access other entities
+
+They can ONLY:
+
+Modify non-relationship fields of the same entity
+
+Why?
+
+Because callbacks run during flush cycle, and modifying relationships can break persistence consistency.
+
+🔹 Example Manual Auditing (Pure JPA)
+@Column(name="operation")
+private String operation;
+
+@Column(name="timestamp")
+private long timestamp;
+
+@PrePersist
+public void onInsert() {
+    audit("INSERT");
+}
+
+private void audit(String op) {
+    this.operation = op;
+    this.timestamp = System.currentTimeMillis();
+}
+
+🔹 Centralizing with @EntityListeners
+
+Instead of repeating callbacks in every entity:
+
+@EntityListeners(AuditListener.class)
+@Entity
+public class Bar {}
+
+
+Listener:
+
+public class AuditListener {
+
+    @PrePersist
+    @PreUpdate
+    @PreRemove
+    private void beforeAnyOperation(Object entity) {}
+}
+
+
+This centralizes lifecycle logic.
+
+🔹 Limitation of Pure JPA Auditing
+
+Cannot audit DELETE properly (entity gets removed)
+
+Cannot track full history
+
+Must manually manage schema
+
+Limited to non-relationship state
+
+📌 3. Hibernate Envers
+
+Envers is a Hibernate module for:
+
+Full entity versioning and historical tracking.
+
+🔹 3.1 Setup
+
+Add dependency:
+
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>envers</artifactId>
+</dependency>
+
+
+Add annotation:
+
+@Entity
+@Audited
+public class Bar {}
+
+🔹 Important Rule
+
+Auditing is PER ENTITY.
+
+If:
+
+Bar has relation to Foo
+
+
+Then:
+
+Foo must also be annotated with @Audited
+
+
+If you want its history tracked.
+
+🔹 3.2 What Tables Are Created?
+
+If Bar is audited:
+
+Envers creates:
+
+bar
+bar_AUD
+REVINFO
+
+
+If Foo is audited:
+
+foo
+foo_AUD
+
+🔹 Audit Table Structure
+
+Audit table contains:
+
+All entity columns +
+
+REV
+REVTYPE
+
+REVTYPE Values
+Value	Meaning
+0	INSERT
+1	UPDATE
+2	DELETE
+🔹 REVINFO Table
+
+Structure:
+
+REV        (primary key)
+REVTSTMP   (timestamp)
+
+
+Important:
+
+One revision per transaction
+
+All changes in same transaction share same REV
+
+_AUD.REV → foreign key to REVINFO.REV
+
+This creates a one-to-many relationship:
+
+One REVINFO → Many Audit Entries
+
+🔹 3.3 Configuration
+
+Example:
+
+Change audit table suffix:
+
+org.hibernate.envers.audit_table_suffix=_AUDIT_LOG
+
+🔹 3.4 Reading Audit History
+
+Obtain reader:
+
+AuditReader reader = AuditReaderFactory.get(entityManager);
+
+
+Get entity at revision:
+
+reader.find(Bar.class, id, revisionNumber);
+
+
+Get all revisions:
+
+reader.createQuery()
+      .forRevisionsOfEntity(Bar.class, true, true);
+
+🔹 Advantages of Envers
+
+Full history
+
+Delete auditing supported
+
+Per-transaction revision tracking
+
+Production-ready
+
+🔹 Limitation
+
+Hibernate specific
+
+Not pure JPA
+
+📌 4. Spring Data JPA Auditing
+
+Spring Data abstracts JPA lifecycle and provides simple annotations.
+
+🔹 4.1 Enable Auditing
+@EnableJpaAuditing
+
+
+Usually on:
+
+@SpringBootApplication
+
+🔹 4.2 Add Entity Listener
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+public class Bar {}
+
+
+This listener internally handles lifecycle.
+
+🔹 4.3 Date Tracking
+@CreatedDate
+private LocalDateTime createdDate;
+
+@LastModifiedDate
+private LocalDateTime modifiedDate;
+
+
+These are auto-populated.
+
+🔹 4.4 User Tracking
+@CreatedBy
+private String createdBy;
+
+@LastModifiedBy
+private String modifiedBy;
+
+
+These get values from AuditorAware.
+
+🔹 AuditorAware Interface
+public class AuditorAwareImpl implements AuditorAware<String> {
+
+    @Override
+    public Optional<String> getCurrentAuditor() {
+        return Optional.of("Atul");
+    }
+}
+
+🔹 Register Auditor Bean
+@EnableJpaAuditing(auditorAwareRef="auditorProvider")
+
+@Bean("auditorProvider")
+public AuditorAware<String> auditorProvider() {
+    return new AuditorAwareImpl();
+}
+
+🔹 How It Works Internally
+persist()
+→ PrePersist event
+→ AuditingEntityListener runs
+→ It calls AuditorAware
+→ Sets createdBy / modifiedDate
+→ SQL executes
+
+🔹 Limitation
+
+Same as pure JPA:
+
+DELETE cannot be fully audited
+
+No history table
+
+Only stores current state
+
+📌 5. Comparison
+Feature	Pure JPA	Envers	Spring Data
+Insert audit	✅	✅	✅
+Update audit	✅	✅	✅
+Delete audit	❌ (entity removed)	✅	❌
+Full history	❌	✅	❌
+Versioning	❌	✅	❌
+Easy config	❌	Medium	✅
+Security integration	❌	❌	✅
+📌 Final Mental Model
+
+There are three levels:
+
+1️⃣ Pure JPA
+
+Basic lifecycle hooks.
+
+2️⃣ Spring Data
+
+Cleaner abstraction of JPA lifecycle.
+
+3️⃣ Envers
+
+True versioned history tracking system.
+
+
+
+---------------
+Example flow
+---------------
 🧠 First — What Is Actually Happening When /posts/9(means posts which is not present) Is Called?
 
 Let’s assume:
@@ -245,6 +625,210 @@ Auditing
 
 🔥🔥🔥🔥🔥
 
+------------
+jpa auditing
+-------------
+
+Uses lifecycle events to cater basic auditing needs
+
+----------------
+Hibernate envers
+----------------
+
+First: Which Auditing Are We Talking About?
+
+The annotation:
+
+@Audited
 
 
+belongs to Hibernate Envers, not Spring Data auditing.
 
+Envers does something different:
+
+It stores historical versions of entities in separate audit tables.
+
+So if you have:
+
+@Entity
+@Audited
+public class Foo { }
+
+
+Hibernate creates:
+
+foo
+foo_AUD
+
+
+Where:
+
+foo → current data
+
+foo_AUD → history of changes
+
+🧠 Now Your Real Question
+
+You asked:
+
+If two entities are in relationship and we audit one, must we audit the other?
+
+Answer:
+
+❌ Not mandatory
+✅ But depends on what you want to track
+
+🔍 Let’s Use Example
+@Entity
+@Audited
+public class Bar {
+
+    @OneToMany(mappedBy = "bar")
+    private List<Foo> foos;
+}
+
+
+and:
+
+@Entity
+public class Foo {
+
+    @ManyToOne
+    private Bar bar;
+}
+
+🔥 Case 1 — Only Bar Is Audited
+
+What happens?
+
+Changes to Bar are tracked.
+
+Relationship changes may or may not be tracked fully.
+
+Changes inside Foo are NOT tracked.
+
+If you update a Foo field:
+
+foo.setName("New Name")
+
+
+No audit record is created for Foo.
+
+Because Foo is not audited.
+
+🔥 Case 2 — Both Are Audited
+@Entity
+@Audited
+public class Foo { }
+
+
+Now:
+
+Foo has its own audit table.
+
+Every update to Foo is stored in foo_AUD.
+
+This gives full history.
+
+🧠 Why Would We Need to Audit Both?
+
+Because:
+
+Auditing Bar does NOT automatically audit Foo.
+
+Each entity is audited independently.
+
+Relationship changes are tracked only if both sides are audited.
+
+🧠 Important Subtle Point
+
+If Bar is audited and Foo is not:
+
+Envers will still track relationship changes in Bar's audit table.
+
+But:
+
+It will NOT store historical versions of Foo.
+
+So history becomes incomplete.
+
+🧠 Example Scenario
+
+You have:
+
+Bar → has many Foo
+
+You audit only Bar.
+
+Now:
+
+You change Foo.name.
+
+Question:
+
+Will history reflect Foo name changes?
+
+Answer: ❌ No.
+
+Because Foo is not audited.
+
+🎯 So When Should You Audit Both?
+
+If:
+
+Both entities contain business-critical data
+
+You need history for both
+
+You want consistent relationship history
+
+Then yes — audit both.
+
+🧠 When Is It Fine to Audit Only One?
+
+If:
+
+Foo is small
+
+Foo data is not important historically
+
+Only Bar changes matter
+
+Then auditing only Bar is fine.
+
+🧠 Clean Rule
+Auditing is per-entity.
+It is NOT automatically cascaded through relationships.
+
+
+Each entity must explicitly have:
+
+@Audited
+
+
+if you want its history tracked.
+
+🔥 Advanced Note
+
+Envers allows:
+
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+
+
+Which means:
+
+Audit this entity, but don’t require the target entity to be audited.
+
+So relationship auditing is configurable.
+
+🎯 Final Answer to Your Question
+
+No, auditing one entity does not automatically audit related entities.
+If you want history tracking for both entities, you must annotate both with @Audited
+
+
+----
+Spring data jpa
+----
+
+built on top of jpa .. does same things using prebuilt callbacks..
