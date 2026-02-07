@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
-public class Weather {
+public class RestTemplateWeather {
 
     private final RestTemplate restTemplate;
 

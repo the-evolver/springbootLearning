@@ -1,6 +1,7 @@
 package com.atul.prod_ready_features;
 
-import com.atul.prod_ready_features.clients.Weather;
+import com.atul.prod_ready_features.clients.RestTemplateWeather;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class ThirdPartyApiTest {
     @Autowired
-    private Weather weather;
+    private RestTemplateWeather weather;
     @Test
     void WeatherTest(){
 
