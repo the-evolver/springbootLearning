@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35ceaf17-7d52-432f-88a8-1f38bebb9f25" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/AppoitmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/DepartmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/DoctorRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Appoitment.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Appoitment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Doctor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/entities/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/PatientRepostory.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/java/com/atul/_1/Practice/repositories/PatientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-management/src/test/java/com/atul/_1/Practice/HospitalManagementApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,9 +55,15 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Public/springbootLearning",
     "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Public\springbootLearning" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.HospitalManagementApplicationTests.testOrphanRemovalInsurance">
     <configuration name="HospitalManagementApplicationTests.testDepartmentHeadDoctor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practice" />

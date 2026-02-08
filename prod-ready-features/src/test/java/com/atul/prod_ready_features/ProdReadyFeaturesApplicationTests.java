@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootTest
 class ProdReadyFeaturesApplicationTests {
 
-     @Autowired
+    @Autowired
     private WebClientWeather webClientWeather;
 
     @Autowired
@@ -22,11 +22,11 @@ class ProdReadyFeaturesApplicationTests {
 
     @Test
     void test(){
-        String webClientResponse = webClientWeather.getWeather();
-        System.out.println("get weather => "+webClientResponse);
+//        String webClientResponse = webClientWeather.getWeather();
+//        System.out.println("get weather => "+webClientResponse);
 
-//        String operFeignClientResponse = openFeignWeatherClient.getWeather();
-//        System.out.println("get weather => "+operFeignClientResponse);
+        String operFeignClientResponse = openFeignWeatherClient.getWeather(28.61,77.23,true);
+        System.out.println("get weather => "+operFeignClientResponse);
     }
 
 }
