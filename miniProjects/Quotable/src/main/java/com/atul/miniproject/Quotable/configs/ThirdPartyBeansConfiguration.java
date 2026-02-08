@@ -1,9 +1,11 @@
 package com.atul.miniproject.Quotable.configs;
 
-import com.atul.miniproject.Quotable.clients.kimiQuotesClient;
+import com.atul.miniproject.Quotable.clients.KimiQuotesRestClient;
+import com.atul.miniproject.Quotable.clients.KimiQuotesWebClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class ThirdPartyBeansConfiguration {
@@ -16,9 +18,21 @@ public class ThirdPartyBeansConfiguration {
     }
 
     @Bean
-    public kimiQuotesClient getQuotesClient(RestClient restClient){
-        return new kimiQuotesClient(restClient);
+    public KimiQuotesRestClient getQuotesClient(RestClient restClient){
+        return new KimiQuotesRestClient(restClient);
 
+    }
+
+    @Bean
+    public WebClient webClient(){
+        return  WebClient.builder()
+                .baseUrl("https://kimiquotes.pages.dev/api")
+                .build();
+    }
+
+    @Bean
+    public KimiQuotesWebClient kimiQuotesWebClient(WebClient webClient){
+        return new KimiQuotesWebClient(webClient);
     }
 
 // With Default Headers

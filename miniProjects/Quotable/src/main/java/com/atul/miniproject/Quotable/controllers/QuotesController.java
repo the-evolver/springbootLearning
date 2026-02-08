@@ -5,6 +5,7 @@ import com.atul.miniproject.Quotable.services.QuotesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,8 +16,8 @@ public class QuotesController {
     private final QuotesService quotesService;
 
     @GetMapping(path = "/quotes/random")
-    QuotesDto getRandomQuotes(){
-          return quotesService.getRandomQuotes();
+    QuotesDto getRandomQuotes(@RequestParam(name = "client" , required = false) String client){
+          return quotesService.getRandomQuotes(client);
 
     }
 }

@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.client.RestClient;
 
 @RequiredArgsConstructor
-public class kimiQuotesClient {
+public class KimiQuotesRestClient {
 
     private final RestClient restClient;
 
